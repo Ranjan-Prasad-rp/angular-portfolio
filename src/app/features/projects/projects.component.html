@@ -1,0 +1,10 @@
+<section class="container my-5">
+  <h2 class="section-title">Projects</h2>
+
+  <div class="projects-grid">
+    @for (p of project; track p.id) {
+    <app-project-card [project]="p" (githubClicked)="handleGithubClick($event)">
+    </app-project-card>
+    }
+  </div>
+</section>

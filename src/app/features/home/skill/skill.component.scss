@@ -1,0 +1,39 @@
+.skills-section {
+  .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--brand-color);
+    padding-left: 1rem;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+
+  .skill-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+    }
+
+    .skill-icon  { font-size: 2rem; }
+    .skill-name  { font-weight: 600; font-size: 0.95rem; }
+  }
+
+  // Level badge colours — YOU add these
+  .badge-advanced     { background: #22c55e; color: white; padding: 2px 8px; border-radius: 999px; font-size: 0.75rem; }
+  .badge-intermediate { background: #f59e0b; color: white; padding: 2px 8px; border-radius: 999px; font-size: 0.75rem; }
+  .badge-beginner     { background: #64748b; color: white; padding: 2px 8px; border-radius: 999px; font-size: 0.75rem; }
+  .featured-badge     { font-size: 0.75rem; }
+}

@@ -1,0 +1,28 @@
+<section id="skills" class="skills-section container my-5" id="skills">
+  <h2 class="section-title">My Skills</h2>
+
+  @if (hasFeaturedSkills) {
+    <p class="text-muted">⭐ Featured skills highlighted</p>
+  }
+
+  <div class="skills-grid">
+    @for (skill of skills; track skill.name) {
+      <div class="skill-card">
+        <span class="skill-icon">{{ skill.icon }}</span>
+        <span class="skill-name">{{ skill.name }}</span>
+
+        <!-- Badge with dynamic colour -->
+        <span [class]="getBadgeClass(skill.level)">
+          {{ skill.level }}
+        </span>
+
+        <!-- Star badge — only for featured skills -->
+        @if (skill.isFeatured) {
+          <span class="featured-badge">⭐</span>
+        }
+      </div>
+    } @empty {
+      <p>No skills added yet.</p>
+    }
+  </div>
+</section>

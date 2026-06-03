@@ -1,0 +1,17 @@
+<div class="hero container p-5 my-5 bg-dark rounded-3 text-light">
+  <div class="col d-flex justify-content-center align-items-center gap-3">
+    <h1 class="text-center">{{ name }}</h1>
+    <span class="badge-available">
+      {{ isAvailableForWork ? "🟢 Open to Work" : "🔴 Not Available" }}
+    </span>
+  </div>
+  <h2 class="text-center">{{ title }}</h2>
+  <p class="text-center">{{ bio }}</p>
+  <div class="links d-flex justify-content-center gap-3 mt-4">
+    <a [href]="githubUrl" target="_blank">GitHub</a>
+    <a [href]="linkedinUrl" class="text-center" target="_blank">LinkedIn</a>
+    <button (click)="downloadCV()" class="text-right" [disabled]="cvDownloaded">
+      {{ cvDownloaded ? "CV Downloaded" : "Download CV" }}
+    </button>
+  </div>
+</div>

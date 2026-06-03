@@ -1,0 +1,26 @@
+.content{
+  min-height: 80vh;
+  flex: 1;
+  padding-bottom: 4rem; /* reserve space for fixed footer */
+}
+
+/* make custom elements block-level so positioning works */
+app-header,
+app-footer {
+  display: block;
+  width: 100%;
+  z-index: 1030;
+}
+
+/* header stays at top of viewport when scrolling */
+app-header {
+  position: sticky;
+  top: 0;
+}
+
+/* footer fixed to bottom so it doesn't collapse with content */
+app-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}

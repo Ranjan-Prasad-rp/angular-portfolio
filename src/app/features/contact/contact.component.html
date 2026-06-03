@@ -1,0 +1,97 @@
+<!-- Replace "contact works!" with: -->
+<section class="container my-5">
+  <h2 class="section-title text-center p-1 my-3">Contact</h2>
+
+  <form
+    [formGroup]="contactForm"
+    (ngSubmit)="onSubmit()"
+    class="form w-50 mx-auto d-flex flex-column gap-3"
+  >
+    <div class="form-floating">
+      <input
+        type="text"
+        id="name"
+        placeholder="Name"
+        formControlName="name"
+        class="form-control"
+        required
+      />
+      <label class="form-label" for="name"> Name</label>
+      @if (
+        contactForm.get("name")?.invalid && contactForm.get("name")?.touched
+      ) {
+        <span class="text-danger touched-error">
+          Name is required and should be at least 3 characters long.
+        </span>
+      }
+    </div>
+    <div class="form-floating">
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        class="form-control"
+        placeholder=""
+        required
+      />
+      <label for="email">Email</label>
+
+      @if (
+        contactForm.get("email")?.invalid && contactForm.get("email")?.touched
+      ) {
+        <span class="text-danger touched-error">
+          Please enter a valid email address.
+        </span>
+      }
+    </div>
+    <div class="form-floating">
+      <input
+        type="text"
+        id="subject"
+        formControlName="subject"
+        class="form-control"
+        placeholder=""
+        required
+      />
+      <label for="subject">Subject</label>
+      @if (
+        contactForm.get("subject")?.invalid &&
+        contactForm.get("subject")?.touched
+      ) {
+        <span class="text-danger touched-error"> Subject is required. </span>
+      }
+    </div>
+    <div class="form-floating">
+      <textarea
+        id="message"
+        formControlName="message"
+        class="form-control"
+        placeholder=""
+        required
+      ></textarea>
+      <label for="message">Message</label>
+      @if (
+        contactForm.get("message")?.invalid &&
+        contactForm.get("message")?.touched
+      ) {
+        <span class="text-danger touched-error">
+          Minimum 10 Characters required.
+        </span>
+      }
+    </div>
+    <button
+      type="submit"
+      class="btn btn-primary w-100"
+      [disabled]="contactForm.invalid"
+    >
+      {{
+        contactForm.invalid
+          ? "Please fill out the form correctly"
+          : "Send Message"
+      }}
+    </button>
+    @if (submitted) {
+      <span class="text-success text-center">Message sent successfully!</span>
+    }
+  </form>
+</section>
