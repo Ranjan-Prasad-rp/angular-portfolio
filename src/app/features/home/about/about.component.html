@@ -1,0 +1,59 @@
+<section id="about" class="about-section">
+  <div class="about-container">
+
+    <div class="photo-col reveal">
+      <div class="photo-wrap">
+        <div class="photo-ring"></div>
+        <img [src]="photo" alt="Ranjan Prasad" class="photo" width="280" height="280" />
+        <div class="photo-glow"></div>
+      </div>
+    </div>
+
+    <div class="content-col">
+      <p class="section-label reveal">About me</p>
+      <h2 class="about-title reveal">Crafting digital<br><span class="title-accent">experiences</span></h2>
+
+      <p class="about-text reveal">
+        I'm a full-stack developer with a backend edge — building production web apps
+        with Angular, Node.js, and Spring Boot. As a Junior Developer Intern at
+        IIEST Federation, I ship live platforms used by thousands of SMEs and
+        recently cut API response times by 70%.
+      </p>
+      <p class="about-text reveal">
+        I care about clean REST API design, secure JWT auth, real-time WebSocket
+        systems, and interfaces that feel effortless — turning complex problems
+        into scalable, dependable software.
+      </p>
+
+      <div class="education reveal">
+        <div class="edu-card">
+          <div class="edu-icon">🎓</div>
+          <div class="edu-info">
+            <p class="edu-degree">MCA</p>
+            <p class="edu-school">Amity University · <span class="edu-cgpa">9.20 CGPA</span></p>
+          </div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-icon">🏛️</div>
+          <div class="edu-info">
+            <p class="edu-degree">BSc Honours — Computer Science</p>
+            <p class="edu-school">Delhi University</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="highlights reveal">
+        @for (h of highlights; track h.label) {
+          <div class="highlight-card">
+            <span
+              class="counter-value highlight-value"
+              [attr.data-target]="h.num"
+              [attr.data-suffix]="h.suffix">0{{ h.suffix }}</span>
+            <span class="highlight-label">{{ h.label }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+  </div>
+</section>
