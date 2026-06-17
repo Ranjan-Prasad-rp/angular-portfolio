@@ -40,13 +40,15 @@ No lint or typecheck scripts exist (`ng build` acts as typecheck).
 - Spec files alongside components (`*.spec.ts`)
 - No e2e framework configured (`ng e2e` not wired)
 
-## Auto-Commit
+## Auto Git Recovery
 
-After every file edit or creation, commit changes with a descriptive message:
-```
-git add -A && git commit -m "auto: <brief description of changes>"
-```
-Multiple files changed in one logical step → one commit with a summary message.
+Use Conventional Commits. Batch small changes, commit medium ones individually, split large ones into checkpoints.
+
+- Small (typos, CSS tweaks, renames) → batch 2-3 into one `chore(recovery): ...` commit
+- Medium (new component, feature, endpoint) → commit individually with `feat/fix/refactor(scope): message`
+- Large (multi-module refactor) → split into logical checkpoints, never one giant commit
+
+Run `.auto-commit.ps1` manually or on a schedule for timestamped snapshots when working outside the agent.
 
 ## Notable
 
