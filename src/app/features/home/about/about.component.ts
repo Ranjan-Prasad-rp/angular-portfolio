@@ -1,4 +1,8 @@
-import { Component, AfterViewInit, ElementRef, inject } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, ElementRef, inject } from '@angular/core';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-about',
@@ -7,8 +11,9 @@ import { Component, AfterViewInit, ElementRef, inject } from '@angular/core';
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss'
 })
-export class AboutComponent implements AfterViewInit {
+export class AboutComponent implements AfterViewInit, OnDestroy {
   private el = inject(ElementRef);
+  private gsapCtx!: gsap.Context;
 
   photo = 'ranjan.jpg';
 
@@ -19,45 +24,63 @@ export class AboutComponent implements AfterViewInit {
   ];
 
   ngAfterViewInit(): void {
-    const host = this.el.nativeElement;
+    const host = this.el.nativeElement as HTMLElement;
 
-    /* Scroll reveal for section */
-    const revealEls = host.querySelectorAll('.reveal');
-    const revealObs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          revealObs.unobserve(e.target);
+    this.gsapCtx = gsap.context(() => {
+      const trigger = { start: 'top 82%', once: true };
+
+      // Photo column — slides in from left
+      gsap.from('.photo-col', {
+        x: -60, opacity: 0, scale: 0.92, duration: 1, ease: 'power3.out',
+        scrollTrigger: { trigger: '.about-container', ...trigger }
+      });
+
+      // Content cascade
+      gsap.from(['.section-label', '.about-title'], {
+        y: 35, opacity: 0, duration: 0.8, ease: 'power3.out',
+        stagger: 0.15,
+        scrollTrigger: { trigger: '.content-col', ...trigger }
+      });
+
+      gsap.from('.about-text', {
+        y: 25, opacity: 0, duration: 0.7, ease: 'power3.out',
+        stagger: 0.12,
+        scrollTrigger: { trigger: '.content-col', start: 'top 78%', once: true }
+      });
+
+      gsap.from('.edu-card', {
+        y: 30, opacity: 0, duration: 0.65, ease: 'power3.out',
+        stagger: 0.15,
+        scrollTrigger: { trigger: '.education', start: 'top 85%', once: true }
+      });
+
+      // Highlight cards + counter
+      gsap.from('.highlight-card', {
+        y: 30, opacity: 0, scale: 0.92, duration: 0.65, ease: 'back.out(1.4)',
+        stagger: 0.12,
+        scrollTrigger: {
+          trigger: '.highlights', start: 'top 88%', once: true,
+          onEnter: () => this.runCounters(host)
         }
       });
-    }, { threshold: 0.12 });
-    revealEls.forEach((el: Element) => revealObs.observe(el));
-
-    /* Counter animation on stat cards */
-    const counters = host.querySelectorAll('.counter-value');
-    const counterObs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          this.animateCounter(e.target as HTMLElement);
-          counterObs.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.5 });
-    counters.forEach((el: Element) => counterObs.observe(el));
+    }, host);
   }
 
-  private animateCounter(el: HTMLElement): void {
-    const target = Number(el.dataset['target'] ?? 0);
-    const suffix = el.dataset['suffix'] ?? '';
-    const duration = 1600;
-    const startTime = performance.now();
+  ngOnDestroy(): void {
+    this.gsapCtx?.revert();
+  }
 
-    const tick = (now: number) => {
-      const progress = Math.min((now - startTime) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.round(eased * target) + suffix;
-      if (progress < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
+  private runCounters(host: HTMLElement): void {
+    host.querySelectorAll<HTMLElement>('.counter-value').forEach(el => {
+      const target = Number(el.dataset['target'] ?? 0);
+      const suffix = el.dataset['suffix'] ?? '';
+      const obj = { val: 0 };
+      gsap.to(obj, {
+        val: target,
+        duration: 1.6,
+        ease: 'power2.out',
+        onUpdate: () => { el.textContent = Math.round(obj.val) + suffix; }
+      });
+    });
   }
 }

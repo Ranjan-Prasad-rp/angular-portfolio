@@ -82,14 +82,7 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Cascade reveal animations ── */
-.hero-left         { animation: blur-in 0.9s var(--ease-out) 0.1s both; }
-.section-label     { animation: blur-in 0.7s var(--ease-out) 0s   both; }
-.hero-badge        { animation: blur-in 0.7s var(--ease-out) 0.2s both; }
-.hero-name         { animation: blur-in 0.85s var(--ease-out) 0.38s both; }
-.hero-title        { animation: blur-in 0.7s var(--ease-out) 0.55s both; }
-.hero-bio          { animation: blur-in 0.7s var(--ease-out) 0.7s  both; }
-.hero-actions      { animation: blur-in 0.7s var(--ease-out) 0.85s both; }
+/* Entrance handled by GSAP timeline in hero.component.ts */
 
 /* ── LEFT column ── */
 .hero-left {
@@ -346,7 +339,7 @@
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  animation: hero-enter 1s var(--ease-out) 0.6s both;
+  /* entrance via GSAP */
 }
 
 .scroll-line {

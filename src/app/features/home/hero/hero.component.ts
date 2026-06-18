@@ -1,13 +1,12 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, OnDestroy, inject } from '@angular/core';
 import { AnimatedTextComponent } from '../../../shared/animated-text/animated-text.component';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface Particle {
-  x: number;
-  y: number;
-  speed: number;
-  opacity: number;
-  fadeStart: number;
-  fadingOut: boolean;
+  x: number; y: number; speed: number; opacity: number; fadeStart: number; fadingOut: boolean;
 }
 
 @Component({
@@ -19,6 +18,7 @@ interface Particle {
 })
 export class HeroComponent implements AfterViewInit, OnDestroy {
   @ViewChild('particleCanvas') canvasRef!: ElementRef<HTMLCanvasElement>;
+  private el = inject(ElementRef);
 
   name = 'Ranjan Prasad';
   title = 'Full-Stack Developer · Backend & System Design';
@@ -31,15 +31,18 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
   private animFrameId = 0;
   private particles: Particle[] = [];
   private readonly onResize = () => this.resizeCanvas();
+  private gsapCtx!: gsap.Context;
 
   ngAfterViewInit(): void {
     this.initParticles();
     window.addEventListener('resize', this.onResize);
+    this.runEntrance();
   }
 
   ngOnDestroy(): void {
     cancelAnimationFrame(this.animFrameId);
     window.removeEventListener('resize', this.onResize);
+    this.gsapCtx?.revert();
   }
 
   downloadCV(): void {
@@ -48,6 +51,65 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
     link.download = 'Ranjan_Prasad_Resume.pdf';
     link.click();
     this.cvDownloaded = true;
+  }
+
+  private runEntrance(): void {
+    const host = this.el.nativeElement as HTMLElement;
+
+    this.gsapCtx = gsap.context(() => {
+      // ── Entrance timeline ──────────────────────────────────────────
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+      tl.from('.particle-canvas', { opacity: 0, duration: 2 }, 0)
+        .from('.hero-left', { x: -40, opacity: 0, duration: 0.9 }, 0.15)
+        .from('.section-label', { y: 22, opacity: 0, filter: 'blur(8px)', duration: 0.7, clearProps: 'filter' }, 0.3)
+        .from('.hero-badge', { y: 18, opacity: 0, scale: 0.88, duration: 0.6 }, 0.46)
+        .from('.hero-name', { y: 38, opacity: 0, filter: 'blur(10px)', duration: 0.85, clearProps: 'filter' }, 0.6)
+        .from('.hero-title', { y: 22, opacity: 0, duration: 0.65 }, 0.78)
+        .from('.hero-bio', { y: 20, opacity: 0, duration: 0.65 }, 0.92)
+        .from('.hero-actions', { y: 20, opacity: 0, duration: 0.65 }, 1.06)
+        .from('.social-link', { opacity: 0, y: 10, stagger: 0.12, duration: 0.5 }, 1.1)
+        .from('.scroll-indicator', { opacity: 0, y: 12, duration: 0.5 }, 1.25);
+
+      // ── Ambient loops ──────────────────────────────────────────────
+      // Photo ring slow rotation
+      gsap.to('.hero-photo-ring', {
+        rotation: 360, duration: 28, ease: 'none', repeat: -1, transformOrigin: '50% 50%',
+      });
+
+      // Photo glow breathe
+      gsap.to('.hero-photo-glow', {
+        opacity: 0.55, scale: 1.18, duration: 2.8, ease: 'sine.inOut', yoyo: true, repeat: -1,
+      });
+
+      // Scroll indicator bounce
+      gsap.to('.scroll-indicator', {
+        y: 7, duration: 1.15, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 1.6,
+      });
+
+      // ── Parallax on scroll ─────────────────────────────────────────
+      gsap.utils.toArray<HTMLElement>('.shape').forEach((shape, i) => {
+        gsap.to(shape, {
+          y: (i % 2 === 0 ? -1 : 1) * (55 + i * 20),
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '.hero-section',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 1.8,
+          },
+        });
+      });
+
+      // Fade scroll indicator as user scrolls away
+      ScrollTrigger.create({
+        trigger: '.hero-section',
+        start: '18% top',
+        end: '38% top',
+        scrub: true,
+        onUpdate: (self) => gsap.set('.scroll-indicator', { opacity: Math.max(0, 1 - self.progress * 1.8) }),
+      });
+    }, host);
   }
 
   private resizeCanvas(): void {

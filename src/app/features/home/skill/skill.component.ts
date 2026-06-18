@@ -1,4 +1,8 @@
-import { Component, AfterViewInit, ElementRef, HostListener } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, ElementRef, HostListener } from '@angular/core';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-skill',
@@ -7,7 +11,8 @@ import { Component, AfterViewInit, ElementRef, HostListener } from '@angular/cor
   templateUrl: './skill.component.html',
   styleUrl: './skill.component.scss'
 })
-export class SkillComponent implements AfterViewInit {
+export class SkillComponent implements AfterViewInit, OnDestroy {
+  private gsapCtx!: gsap.Context;
 
   constructor(private el: ElementRef) {}
 
@@ -18,28 +23,44 @@ export class SkillComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const cards: NodeListOf<HTMLElement> = this.el.nativeElement.querySelectorAll('.cat-card');
-    cards.forEach((card, i) => {
-      setTimeout(() => {
-        card.classList.add('is-visible');
-        const badge = card.querySelector('.cat-count') as HTMLElement | null;
-        if (badge) this.countUp(badge);
-      }, 300 + i * 150);
-    });
+    const host = this.el.nativeElement as HTMLElement;
+
+    this.gsapCtx = gsap.context(() => {
+      // Section header
+      gsap.from('.skills-head', {
+        y: 45, opacity: 0, duration: 0.85, ease: 'power3.out',
+        scrollTrigger: { trigger: '.skills-head', start: 'top 88%', once: true }
+      });
+
+      // Category cards stagger
+      gsap.from('.cat-card', {
+        y: 65, opacity: 0, scale: 0.94, duration: 0.75, ease: 'power3.out',
+        stagger: { amount: 0.5, from: 'start' },
+        scrollTrigger: { trigger: '.cat-grid', start: 'top 82%', once: true },
+        onComplete: () => {
+          host.querySelectorAll<HTMLElement>('.cat-count').forEach(badge => this.countUp(badge));
+        }
+      });
+    }, host);
+  }
+
+  ngOnDestroy(): void {
+    this.gsapCtx?.revert();
   }
 
   private countUp(el: HTMLElement): void {
     const target = parseInt(el.textContent ?? '0', 10);
-    const duration = 900;
-    const start = performance.now();
-    const tick = (now: number) => {
-      const p = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = String(Math.round(eased * target));
-      if (p < 1) requestAnimationFrame(tick);
-    };
-    el.textContent = '0';
-    requestAnimationFrame(tick);
+    const duration = 0.9;
+    gsap.fromTo(el,
+      { textContent: 0 },
+      {
+        textContent: target,
+        duration,
+        ease: 'power2.out',
+        snap: { textContent: 1 },
+        onUpdate() { el.textContent = String(Math.round(Number(el.textContent))); }
+      }
+    );
   }
 
   marqueeRow1 = [
