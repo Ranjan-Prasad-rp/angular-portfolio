@@ -34,6 +34,24 @@
   }
 }
 
+/* ── Particle canvas ── */
+.particle-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: screen;
+  opacity: 0.65;
+}
+
+/* ── Blur-reveal entrance ── */
+@keyframes blur-in {
+  0%   { opacity: 0; filter: blur(10px); transform: translateY(14px); }
+  100% { opacity: 1; filter: blur(0px);  transform: translateY(0); }
+}
+
 /* Dot-grid texture */
 .hero-grid {
   position: absolute;
@@ -57,13 +75,21 @@
   width: 100%;
   position: relative;
   z-index: 1;
-  animation: hero-enter 0.9s var(--ease-out) both;
 }
 
 @keyframes hero-enter {
   from { opacity: 0; transform: translateY(40px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* ── Cascade reveal animations ── */
+.hero-left         { animation: blur-in 0.9s var(--ease-out) 0.1s both; }
+.section-label     { animation: blur-in 0.7s var(--ease-out) 0s   both; }
+.hero-badge        { animation: blur-in 0.7s var(--ease-out) 0.2s both; }
+.hero-name         { animation: blur-in 0.85s var(--ease-out) 0.38s both; }
+.hero-title        { animation: blur-in 0.7s var(--ease-out) 0.55s both; }
+.hero-bio          { animation: blur-in 0.7s var(--ease-out) 0.7s  both; }
+.hero-actions      { animation: blur-in 0.7s var(--ease-out) 0.85s both; }
 
 /* ── LEFT column ── */
 .hero-left {
