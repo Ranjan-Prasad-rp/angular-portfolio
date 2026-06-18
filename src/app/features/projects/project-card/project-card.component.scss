@@ -1,54 +1,135 @@
+.project-card.featured {
+  border-color: rgba(34, 197, 94, 0.35);
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.06) 0%, var(--surface) 60%);
+  box-shadow: 0 0 32px rgba(34, 197, 94, 0.08);
+
+  &:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 40px rgba(34, 197, 94, 0.15);
+  }
+}
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(34, 197, 94, 0.1);
+  color: var(--accent);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: var(--radius-full);
+  padding: 2px 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.7); }
+}
+
+.live-btn {
+  background: rgba(34, 197, 94, 0.1) !important;
+  color: var(--accent) !important;
+  border-color: rgba(34, 197, 94, 0.3) !important;
+
+  &:hover {
+    background: var(--accent) !important;
+    color: #0F172A !important;
+    border-color: var(--accent) !important;
+  }
+}
+
 .project-card {
-    background: var(--card-bg);
-    border-radius: 12px;
-    padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  height: 100%;
+  cursor: pointer;
+  transition: transform var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out),
+              background var(--duration-fast) var(--ease-out);
+
+  &:hover {
+    transform: translateY(-4px);
+    background: var(--surface-hover);
+    border-color: var(--border-accent);
+
+    .view-btn {
+      background: var(--accent);
+      color: #0F172A;
+      border-color: var(--accent);
+    }
+  }
+
+  h3 {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--fg);
+    margin: 0;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+  }
+
+  p {
+    color: var(--fg-muted);
+    font-size: 0.875rem;
+    margin: 0;
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .tech-stack {
     display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
 
-    h3 {
-        font-size: 1.25rem;
-        font-weight: 700;
-        margin: 0;
-    }
+  .tag {
+    background: rgba(34, 197, 94, 0.08);
+    color: #4ADE80;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    padding: 2px 10px;
+    border-radius: var(--radius-full);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
 
-    p {
-        color: var(--secondary-text);
-        font-size: 0.9rem;
-        margin: 0;
-    }
-
-    .tech-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.4rem;
-
-        .tag {
-            background: #1e3a5f;
-            color: #93c5fd;
-            padding: 2px 10px;
-            border-radius: 999px;
-            font-size: 0.75rem;
-        }
-    }
-
-    .featured {
-        font-size: 0.8rem;
-        color: #fbbf24;
-    }
-
-    button {
-        margin-top: auto;
-        background: var(--brand-color);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        padding: 0.6rem 1rem;
-        cursor: pointer;
-        font-weight: 600;
-
-        &:hover {
-            opacity: 0.85;
-        }
-    }
+  .view-btn {
+    margin-top: auto;
+    background: var(--surface-hover);
+    color: var(--fg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.625rem 1.25rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.875rem;
+    font-family: inherit;
+    transition: all var(--duration-fast) var(--ease-out);
+    text-align: center;
+  }
 }

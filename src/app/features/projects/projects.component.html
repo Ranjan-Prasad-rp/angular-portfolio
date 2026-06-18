@@ -1,10 +1,96 @@
-<section class="container my-5">
-  <h2 class="section-title">Projects</h2>
+<section class="projects-page">
 
-  <div class="projects-grid">
-    @for (p of project; track p.id) {
-    <app-project-card [project]="p" (githubClicked)="handleGithubClick($event)">
-    </app-project-card>
+  <!-- ── Industry Work ── -->
+  <div class="section-header">
+    <p class="section-label">Professional Experience</p>
+    <h2 class="section-title">Industry Projects</h2>
+    <p class="section-sub">Production applications built and shipped at IIEST Federation — real users, real impact.</p>
+  </div>
+
+  <div class="industry-stack">
+    @for (p of industryProjects; track p.name; let i = $index) {
+      <article class="case" [class.live]="p.status === 'live'" [class.shipped]="p.status === 'shipped'">
+
+        <!-- LEFT: browser-frame mockup with hero metric -->
+        <div class="case__visual">
+          <div class="browser">
+            <div class="browser__bar">
+              <span class="dot dot--r"></span>
+              <span class="dot dot--y"></span>
+              <span class="dot dot--g"></span>
+              <span class="browser__url">
+                <svg class="lock" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 1 1 8 0v4"/>
+                </svg>
+                {{ p.domain }}
+              </span>
+            </div>
+            <div class="browser__screen">
+              <div class="mesh"></div>
+              <div class="metric">
+                <span class="metric__value">{{ p.metric }}</span>
+                <span class="metric__label">{{ p.metricLabel }}</span>
+              </div>
+              @if (p.status === 'live') {
+                <span class="screen-badge"><span class="pulse-dot"></span>Live</span>
+              } @else {
+                <span class="screen-badge screen-badge--shipped">✓ Shipped</span>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: details -->
+        <div class="case__body">
+          <div class="case__index">{{ i + 1 < 10 ? '0' : '' }}{{ i + 1 }}</div>
+
+          <div class="case__meta">
+            <span class="case__company">{{ p.company }}</span>
+            <span class="case__sep">·</span>
+            <span class="case__role">{{ p.role }}</span>
+            <span class="case__sep">·</span>
+            <span class="case__duration">{{ p.duration }}</span>
+          </div>
+
+          <h3 class="case__name">{{ p.name }}</h3>
+          <p class="case__desc">{{ p.description }}</p>
+
+          <ul class="impact-list">
+            @for (item of p.impact; track item) {
+              <li class="impact-item"><span class="impact-icon">→</span>{{ item }}</li>
+            }
+          </ul>
+
+          <div class="tech-pills">
+            @for (t of p.tech; track t) {
+              <span class="tech-pill">{{ t }}</span>
+            }
+          </div>
+
+          <button class="live-cta" (click)="openLive(p.liveUrl)">
+            Visit Live Site
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
+            </svg>
+          </button>
+        </div>
+
+      </article>
     }
   </div>
+
+  <!-- ── GitHub Practice ── -->
+  <div class="section-header section-header--practice">
+    <p class="section-label">Open Source & Practice</p>
+    <h2 class="section-title section-title--muted">GitHub Projects</h2>
+    <p class="section-sub">Hands-on exploration — sharpening skills through real implementations.</p>
+  </div>
+
+  <div class="github-grid">
+    @for (p of githubRepos; track p.id) {
+      <app-project-card [project]="p" (githubClicked)="handleGithubClick($event)">
+      </app-project-card>
+    }
+  </div>
+
 </section>

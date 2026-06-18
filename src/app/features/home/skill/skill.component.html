@@ -1,28 +1,52 @@
-<section id="skills" class="skills-section container my-5" id="skills">
-  <h2 class="section-title">My Skills</h2>
+<section id="skills" class="skills-section">
+  <div class="skills-head">
+    <p class="section-label">What I work with</p>
+    <h2 class="section-title">Skills &amp; Technologies</h2>
+  </div>
 
-  @if (hasFeaturedSkills) {
-    <p class="text-muted">⭐ Featured skills highlighted</p>
-  }
-
-  <div class="skills-grid">
-    @for (skill of skills; track skill.name) {
-      <div class="skill-card">
-        <span class="skill-icon">{{ skill.icon }}</span>
-        <span class="skill-name">{{ skill.name }}</span>
-
-        <!-- Badge with dynamic colour -->
-        <span [class]="getBadgeClass(skill.level)">
-          {{ skill.level }}
-        </span>
-
-        <!-- Star badge — only for featured skills -->
-        @if (skill.isFeatured) {
-          <span class="featured-badge">⭐</span>
+  <!-- Marquee ticker -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-row">
+      <div class="marquee-track">
+        @for (s of marqueeRow1; track $index) {
+          <span class="marquee-pill"><span class="pill-icon">{{ s.icon }}</span>{{ s.name }}</span>
+        }
+        @for (s of marqueeRow1; track 'a' + $index) {
+          <span class="marquee-pill"><span class="pill-icon">{{ s.icon }}</span>{{ s.name }}</span>
         }
       </div>
-    } @empty {
-      <p>No skills added yet.</p>
+    </div>
+    <div class="marquee-row">
+      <div class="marquee-track marquee-reverse">
+        @for (s of marqueeRow2; track $index) {
+          <span class="marquee-pill"><span class="pill-icon">{{ s.icon }}</span>{{ s.name }}</span>
+        }
+        @for (s of marqueeRow2; track 'b' + $index) {
+          <span class="marquee-pill"><span class="pill-icon">{{ s.icon }}</span>{{ s.name }}</span>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Category cards -->
+  <div class="cat-grid">
+    @for (cat of categoryGroups; track cat.name) {
+      <div class="cat-card"
+           [style.--cat-accent]="cat.accent"
+           [style.--cat-dim]="cat.dim"
+           [style.--cat-border]="cat.border">
+        <div class="cat-head">
+          <span class="cat-name"><span class="cat-dot"></span>{{ cat.name }}</span>
+          <span class="cat-count">{{ cat.skills.length }}</span>
+        </div>
+        <div class="cat-skills">
+          @for (sk of cat.skills; track sk.name) {
+            <span class="skill-chip" [attr.data-level]="sk.level">
+              <span class="chip-icon">{{ sk.icon }}</span>{{ sk.name }}
+            </span>
+          }
+        </div>
+      </div>
     }
   </div>
 </section>

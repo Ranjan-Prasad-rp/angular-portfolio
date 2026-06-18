@@ -1,22 +1,21 @@
-<div class="project-card">
-
-  <!-- display project data using @Input -->
-  <h3>{{ project.title }}</h3>
+<div class="project-card" [class.featured]="!!project.liveUrl">
+  <div class="card-header">
+    <h3>{{ project.name | titlecase }}</h3>
+    @if (project.liveUrl) {
+      <span class="live-badge"><span class="live-dot"></span>Live</span>
+    }
+  </div>
   <p>{{ project.description }}</p>
 
-  <!-- loop tech stack tags -->
-  <div class="tech-tags">
-    @for (tech of project.techStack; track tech) {
-    <span class="tag">{{ tech }}</span>
+  <div class="tech-stack">
+    @for (tech of project.topics; track tech) {
+      <span class="tag">{{ tech }}</span>
     }
   </div>
 
-  <!-- featured badge -->
-  @if (project.featured) {
-  <span class="featured">⭐ Featured</span>
+  @if (project.liveUrl) {
+    <button class="view-btn live-btn" (click)="onLiveClick()">View Live ↗</button>
+  } @else {
+    <button class="view-btn" (click)="onGithubClick()">View on GitHub</button>
   }
-
-  <!-- button fires @Output event -->
-  <button (click)="onGithubClick()">View on GitHub</button>
-
 </div>
