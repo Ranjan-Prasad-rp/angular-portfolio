@@ -57,32 +57,15 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
     const host = this.el.nativeElement as HTMLElement;
 
     this.gsapCtx = gsap.context(() => {
-      // ── Entrance timeline ──────────────────────────────────────────
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-      tl.from('.particle-canvas', { opacity: 0, duration: 2 }, 0)
-        .from('.hero-left', { x: -40, opacity: 0, duration: 0.9 }, 0.15)
-        .from('.section-label', { y: 22, opacity: 0, filter: 'blur(8px)', duration: 0.7, clearProps: 'filter' }, 0.3)
-        .from('.hero-badge', { y: 18, opacity: 0, scale: 0.88, duration: 0.6 }, 0.46)
-        .from('.hero-name', { y: 38, opacity: 0, filter: 'blur(10px)', duration: 0.85, clearProps: 'filter' }, 0.6)
-        .from('.hero-title', { y: 22, opacity: 0, duration: 0.65 }, 0.78)
-        .from('.hero-bio', { y: 20, opacity: 0, duration: 0.65 }, 0.92)
-        .from('.hero-actions', { y: 20, opacity: 0, duration: 0.65 }, 1.06)
-        .from('.social-link', { opacity: 0, y: 10, stagger: 0.12, duration: 0.5 }, 1.1)
-        .from('.scroll-indicator', { opacity: 0, y: 12, duration: 0.5 }, 1.25);
-
-      // ── Ambient loops ──────────────────────────────────────────────
-      // Photo ring slow rotation
+      // ── Ambient loops (gsap.to — safe, no opacity:0 init) ─────────
       gsap.to('.hero-photo-ring', {
         rotation: 360, duration: 28, ease: 'none', repeat: -1, transformOrigin: '50% 50%',
       });
 
-      // Photo glow breathe
       gsap.to('.hero-photo-glow', {
         opacity: 0.55, scale: 1.18, duration: 2.8, ease: 'sine.inOut', yoyo: true, repeat: -1,
       });
 
-      // Scroll indicator bounce
       gsap.to('.scroll-indicator', {
         y: 7, duration: 1.15, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 1.6,
       });
