@@ -26,19 +26,13 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     const host = this.el.nativeElement as HTMLElement;
+    // No ScrollTrigger — contact is a full-page route, all content visible on load
     this.ctx = gsap.context(() => {
-      gsap.from(['.section-title', '.section-sub'], {
-        y: 30, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.14,
-        scrollTrigger: { trigger: '.contact-page', start: 'top 85%', once: true },
-      });
-      gsap.from('.field', {
-        y: 24, opacity: 0, duration: 0.65, ease: 'power2.out', stagger: 0.1, delay: 0.18,
-        scrollTrigger: { trigger: '.contact-form', start: 'top 88%', once: true },
-      });
-      gsap.from('.submit-btn', {
-        y: 16, opacity: 0, scale: 0.96, duration: 0.55, ease: 'back.out(1.6)', delay: 0.55,
-        scrollTrigger: { trigger: '.contact-form', start: 'top 88%', once: true },
-      });
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      tl.from('.section-title', { y: 30, opacity: 0, duration: 0.75 })
+        .from('.section-sub',   { y: 20, opacity: 0, duration: 0.6 }, '-=0.45')
+        .from('.field',         { y: 22, opacity: 0, duration: 0.55, stagger: 0.09 }, '-=0.3')
+        .from('.submit-btn',    { y: 14, opacity: 0, scale: 0.95, duration: 0.5, ease: 'back.out(1.6)' }, '-=0.15');
     }, host);
   }
 
