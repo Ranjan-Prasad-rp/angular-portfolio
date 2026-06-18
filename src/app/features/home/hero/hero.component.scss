@@ -104,7 +104,7 @@
 .hero-left         { animation: h-slide-left 0.85s cubic-bezier(0.16,1,0.3,1) 0.12s both; }
 .section-label     { animation: h-fade-up   0.65s cubic-bezier(0.16,1,0.3,1) 0.28s both; }
 .hero-badge        { animation: h-scale-up  0.6s  cubic-bezier(0.34,1.56,0.64,1) 0.42s both; }
-.hero-name         { animation: h-fade-up   0.8s  cubic-bezier(0.16,1,0.3,1) 0.56s both; }
+.hero-name         { opacity: 1; }
 .hero-title        { animation: h-fade-up   0.6s  cubic-bezier(0.16,1,0.3,1) 0.72s both; }
 .hero-bio          { animation: h-fade-up   0.6s  cubic-bezier(0.16,1,0.3,1) 0.86s both; }
 .hero-actions      { animation: h-fade-up   0.6s  cubic-bezier(0.16,1,0.3,1) 1.0s  both; }
