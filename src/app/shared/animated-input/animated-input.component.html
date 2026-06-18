@@ -1,0 +1,22 @@
+<div class="anim-field" [class.active]="isActive" [class.invalid]="isInvalid">
+  <div class="anim-label" aria-hidden="true">
+    <span
+      *ngFor="let char of labelChars; let i = index"
+      class="anim-char"
+      [style.transition-delay]="isActive ? (i * 35) + 'ms' : '0ms'"
+    >{{ char === ' ' ? ' ' : char }}</span>
+  </div>
+  <input
+    [id]="inputId"
+    [type]="type"
+    [autocomplete]="autocomplete"
+    [disabled]="isDisabled"
+    [value]="value"
+    [attr.aria-label]="label"
+    (input)="onInput($event)"
+    (focus)="onFocus()"
+    (blur)="onBlur()"
+    class="anim-input"
+    placeholder=""
+  />
+</div>

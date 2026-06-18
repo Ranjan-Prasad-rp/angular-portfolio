@@ -1,4 +1,103 @@
-.touched-error{
-    font-size: 0.8rem;
+.contact-page {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem 5rem;
+}
 
+.section-title {
+  font-size: clamp(1.625rem, 4vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--fg);
+  margin: 0 0 0.5rem;
+}
+
+.section-sub {
+  color: var(--fg-muted);
+  font-size: 0.95rem;
+  margin: 0 0 2.5rem;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--fg-muted);
+  }
+
+  .required { color: var(--accent); }
+}
+
+.field-error {
+  font-size: 0.78rem;
+  color: var(--destructive);
+}
+
+.form-input {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.85rem 1rem;
+  color: var(--fg);
+  font-family: inherit;
+  font-size: 0.95rem;
+  resize: vertical;
+  transition: border-color var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-fast) var(--ease-out);
+
+  &::placeholder { color: var(--fg-subtle); }
+
+  &:focus {
+    outline: none;
+    border-color: var(--border-accent);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+  }
+
+  &.is-invalid {
+    border-color: rgba(239, 68, 68, 0.5);
+  }
+}
+
+.submit-btn {
+  background: var(--accent);
+  color: #0F172A;
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.85rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out),
+              transform var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-fast) var(--ease-out);
+
+  &:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--accent) 88%, white);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(34, 197, 94, 0.3);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.success-msg {
+  text-align: center;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.95rem;
 }

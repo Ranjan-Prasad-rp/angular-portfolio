@@ -1,0 +1,59 @@
+.anim-field {
+  position: relative;
+  width: 100%;
+  padding-top: 1.25rem; /* room for label to float above */
+}
+
+.anim-label {
+  position: absolute;
+  top: calc(1.25rem + 0.55rem); /* align with input text baseline */
+  left: 0;
+  display: flex;
+  pointer-events: none;
+  user-select: none;
+}
+
+.anim-char {
+  display: inline-block;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--fg-subtle);
+  will-change: transform, color;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+              color 0.25s ease;
+  /* white-space preserved: non-breaking space passed from template */
+  white-space: pre;
+}
+
+.anim-field.active .anim-char {
+  transform: translateY(-130%);
+  color: var(--accent);
+}
+
+.anim-field.invalid .anim-char {
+  color: var(--destructive);
+}
+
+.anim-input {
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--border);
+  padding: 0.45rem 0;
+  color: var(--fg);
+  font-size: 0.9375rem;
+  font-family: inherit;
+  font-weight: 500;
+  outline: none;
+  transition: border-color var(--duration-fast) var(--ease-out);
+  caret-color: var(--accent);
+
+  &::placeholder { color: transparent; }
+
+  &:focus { border-bottom-color: var(--accent); }
+}
+
+.anim-field.invalid .anim-input {
+  border-bottom-color: var(--destructive);
+}

@@ -1,0 +1,12 @@
+<span class="anim-wrap" [class.anim-wrap--brand]="variant === 'brand'">
+  <span
+    *ngFor="let letter of letters; let i = index"
+    class="anim-letter"
+    [style.animation-delay.s]="i * staggerDelay"
+  >{{ letter === ' ' ? ' ' : letter }}</span>
+  <span
+    *ngIf="showUnderline"
+    class="anim-underline"
+    [style.animation-delay.s]="letters.length * staggerDelay"
+  ></span>
+</span>
