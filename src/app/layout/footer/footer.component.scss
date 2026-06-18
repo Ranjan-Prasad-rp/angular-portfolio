@@ -1,0 +1,124 @@
+.site-footer {
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border);
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.6;
+  }
+}
+
+.footer-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 2rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.footer-name {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--fg);
+  letter-spacing: -0.01em;
+}
+
+.footer-tagline {
+  font-size: 0.75rem;
+  color: var(--fg-subtle);
+  letter-spacing: 0.02em;
+}
+
+.footer-nav {
+  display: flex;
+  gap: 1.75rem;
+}
+
+.footer-link {
+  font-size: 0.875rem;
+  color: var(--fg-muted);
+  text-decoration: none;
+  transition: color 200ms ease;
+
+  &:hover {
+    color: var(--accent);
+  }
+}
+
+.footer-socials {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.footer-social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--fg-muted);
+  text-decoration: none;
+  transition: all 200ms ease;
+
+  &:hover {
+    color: var(--accent);
+    border-color: var(--border-accent);
+    background: var(--accent-dim);
+    transform: translateY(-2px);
+  }
+}
+
+.footer-bottom {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0.875rem 2rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--fg-subtle);
+}
+
+.footer-built {
+  opacity: 0.6;
+}
+
+@media (max-width: 640px) {
+  .footer-inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.75rem 1.5rem 1rem;
+  }
+
+  .footer-nav {
+    gap: 1.25rem;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 0.25rem;
+    text-align: center;
+    padding: 0.75rem 1.5rem;
+  }
+}
