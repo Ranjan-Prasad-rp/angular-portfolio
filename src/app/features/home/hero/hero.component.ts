@@ -21,8 +21,8 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
   private el = inject(ElementRef);
 
   name = 'Ranjan Prasad';
-  title = 'Full-Stack Developer · Backend & System Design';
-  bio = 'I design and ship production web apps end-to-end with Angular, Node.js, Express.js, and MongoDB. At IIEST Federation I built live platforms serving thousands of SMEs and cut API response times by 70% — with a focus on REST API design, JWT security, and real-time WebSockets.';
+  title = 'Full-Stack Developer · MEAN Stack · System Design';
+  bio = 'I build production web apps across the MEAN stack — MongoDB, Express.js, Angular, and Node.js — and work comfortably in React too. At IIEST Federation I ship live platforms serving thousands of SMEs, cutting API response times by 70%, with a focus on REST API design, JWT security, and real-time WebSockets.';
   githubUrl = 'https://github.com/Ranjan-Prasad-rp';
   linkedinUrl = 'https://www.linkedin.com/in/ranjan-prasad-dev/';
   isAvailableForWork = true;

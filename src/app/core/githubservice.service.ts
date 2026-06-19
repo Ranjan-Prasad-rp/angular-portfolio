@@ -14,7 +14,7 @@ export class GithubserviceService {
 
 
   githubRepos() {
-    return this.http.get<Githubrepo[]>(`https://api.github.com/users/${this.username}/repos?sort=updated&per_page=10`)
+    return this.http.get<Githubrepo[]>(`https://api.github.com/users/${this.username}/repos?sort=updated&per_page=20`)
   }
 
 

@@ -18,8 +18,8 @@ export class AboutComponent implements AfterViewInit, OnDestroy {
   photo = 'ranjan.jpg';
 
   highlights = [
-    { value: '3+', label: 'Months Learning', num: 3, suffix: '+' },
-    { value: '20+', label: 'Projects Built', num: 10, suffix: '+' },
+    { value: '3+', label: 'Months Interning', num: 3, suffix: '+' },
+    { value: '20+', label: 'Projects Built', num: 20, suffix: '+' },
     { value: '15+', label: 'Technologies', num: 15, suffix: '+' },
   ];
 

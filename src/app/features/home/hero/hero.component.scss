@@ -281,28 +281,19 @@
   margin-bottom: 0.75rem;
   cursor: default;
 
-  background-image: linear-gradient(90deg, #F8FAFC 0%, #F8FAFC 100%);
-  background-size: 300% 100%;
-  background-position: 0% center;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  transition: filter var(--duration) var(--ease-out);
+  color: #F8FAFC;
 
-  &:hover {
-    background-image: linear-gradient(
-      90deg,
-      #22C55E 0%, #06B6D4 22%, #818CF8 44%,
-      #22C55E 66%, #06B6D4 88%, #818CF8 100%
-    );
-    animation: name-flow 1.8s linear infinite;
-    filter: drop-shadow(0 0 20px rgba(34, 197, 94, 0.4));
+  ::ng-deep .anim-letter {
+    background-image: linear-gradient(135deg, #22C55E 0%, #06B6D4 52%, #818CF8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: filter var(--duration) var(--ease-out);
   }
-}
 
-@keyframes name-flow {
-  0%   { background-position: 0% center; }
-  100% { background-position: 300% center; }
+  &:hover ::ng-deep .anim-letter {
+    filter: drop-shadow(0 0 16px rgba(34, 197, 94, 0.45));
+  }
 }
 
 .hero-title {

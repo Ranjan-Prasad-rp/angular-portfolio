@@ -51,7 +51,9 @@
         {{ isAvailableForWork ? 'Open to Work' : 'Not Available' }}
       </div>
 
-      <h1 class="hero-name">{{ name }}</h1>
+      <h1 class="hero-name" [attr.aria-label]="name">
+        <app-animated-text [text]="name" variant="brand" [staggerDelay]="0.08" [showUnderline]="false"></app-animated-text>
+      </h1>
       <p class="hero-title">{{ title }}</p>
       <p class="hero-bio">{{ bio }}</p>
 
