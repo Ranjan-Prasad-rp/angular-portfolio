@@ -284,16 +284,32 @@
   color: #F8FAFC;
 
   ::ng-deep .anim-letter {
-    background-image: linear-gradient(135deg, #22C55E 0%, #06B6D4 52%, #818CF8 100%);
+    opacity: 1 !important;
+    transform: none !important;
+    background-image: linear-gradient(
+      90deg,
+      #22C55E 0%, #06B6D4 25%, #818CF8 50%, #06B6D4 75%, #22C55E 100%
+    );
+    background-size: 200% 100%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    animation: name-color-flow 6s linear infinite !important;
     transition: filter var(--duration) var(--ease-out);
   }
 
   &:hover ::ng-deep .anim-letter {
     filter: drop-shadow(0 0 16px rgba(34, 197, 94, 0.45));
   }
+}
+
+@keyframes name-color-flow {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-name ::ng-deep .anim-letter { animation: none !important; }
 }
 
 .hero-title {
